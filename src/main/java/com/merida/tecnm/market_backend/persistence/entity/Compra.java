@@ -10,7 +10,7 @@ public class Compra{
 @Column (name ="id_compra")
 private Integer idCompra;
 @Column (name ="id_cliente")
-private String idCliente;
+private String id_cliente;
 private LocalDateTime fecha;
 @Column (name ="medio_pago")
 private String medioPago;

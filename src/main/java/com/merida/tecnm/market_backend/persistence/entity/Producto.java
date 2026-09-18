@@ -7,9 +7,9 @@ public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType. IDENTITY)
     @Column(name ="id_producto")
-    private Integer id_Producto;
+    private Integer idProducto;
     private String nombre;
-    @Column (name ="id_categonia")
+    @Column (name ="id_categoria")
     private Integer id_categoria;
     @Column(name ="codigo_barras")
     private String codigoBarras;
