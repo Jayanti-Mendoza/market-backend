@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 public class Compra{
 @Id
 @GeneratedValue(strategy= GenerationType.IDENTITY)
-@Column (name ="id_compra")
-private Integer idCompra;
+@Column (name="id_compra")
+private Integer id_compra;
 @Column (name ="id_cliente")
 private String id_cliente;
 private LocalDateTime fecha;
