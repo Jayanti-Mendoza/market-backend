@@ -1,9 +1,11 @@
 package com.merida.tecnm.market_backend.persistence.entity;
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="categoria")
-public class Categoria {
+public class
+Categoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +19,9 @@ public class Categoria {
     private String descripcion;
 
     private Boolean estado;
+
+    @OneToMany(mappedBy = "categoria")
+    private List<Producto> productos;
 
     public Integer getIdCategoria() {
         return idCategoria;
