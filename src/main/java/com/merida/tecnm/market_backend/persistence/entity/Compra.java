@@ -54,4 +54,44 @@ private String estado;
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    public Integer getId_compra() {
+        return id_compra;
+    }
+
+    public String getId_cliente() {
+        return id_cliente;
+    }
+
+    public LocalDateTime getFecha() {
+        return fecha;
+    }
+
+    public String getMedioPago() {
+        return medioPago;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public List<CompraProducto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<CompraProducto> productos) {
+        this.productos = productos;
+    }
 }
