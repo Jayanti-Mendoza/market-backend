@@ -1,20 +1,21 @@
 package com.merida.tecnm.market_backend.domain;
 
 public class Product {
-    private Integer ProductId;
+    private int productId;
     private String name;
-    private int CategoryId;
+    private int categoryId;
     private double price;
     private int stock;
     private boolean active;
     private Category category;
 
-    public Integer getProductId() {
-        return ProductId;
+    // Getters y Setters para que MapStruct pueda reconocer las propiedades:
+    public int getProductId() {
+        return productId;
     }
 
-    public void setProductId(Integer productId) {
-        ProductId = productId;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     public String getName() {
@@ -26,11 +27,11 @@ public class Product {
     }
 
     public int getCategoryId() {
-        return CategoryId;
+        return categoryId;
     }
 
     public void setCategoryId(int categoryId) {
-        CategoryId = categoryId;
+        this.categoryId = categoryId;
     }
 
     public double getPrice() {
@@ -64,5 +65,4 @@ public class Product {
     public void setCategory(Category category) {
         this.category = category;
     }
-
 }

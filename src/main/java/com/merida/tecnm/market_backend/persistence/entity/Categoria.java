@@ -1,19 +1,15 @@
 package com.merida.tecnm.market_backend.persistence.entity;
+
 import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="categoria")
-public class
-Categoria {
+@Table(name = "categorias")
+public class Categoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name ="id_categoria")
-
-    //Private que las variables son privadas
-    // get obtiene, consulta
-    //set  (setdescripcion) envia, void
+    @Column(name = "id_categoria")
     private Integer idCategoria;
 
     private String descripcion;

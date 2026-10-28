@@ -3,9 +3,9 @@ package com.merida.tecnm.market_backend.persistence.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table (name = "compras_producto")
+@Table(name = "compras_productos")
 public class CompraProducto {
-    //Viene de otra clase
+
     @EmbeddedId
     private CompraProductoPK id;
     private Integer cantidad;
@@ -13,11 +13,12 @@ public class CompraProducto {
     private Boolean estado;
 
     @ManyToOne
-    @JoinColumn (name ="id_compra", insertable = false, updatable = false)
+    @MapsId("idCompra")
+    @JoinColumn(name = "id_compra", insertable = false, updatable = false)
     private Compra compra;
 
     @ManyToOne
-    @JoinColumn(name ="id_producto", insertable = false, updatable = false)
+    @JoinColumn(name = "id_producto", insertable = false, updatable = false)
     private Producto producto;
 
     public CompraProductoPK getId() {

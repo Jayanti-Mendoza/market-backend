@@ -1,17 +1,16 @@
 package com.merida.tecnm.market_backend.domain;
 
 public class Category {
-
-    private int categoryid;
+    private int categoryId;
     private String category;
     private boolean active;
 
-    public int getCategoryid() {
-        return categoryid;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategoryid(int categoryid) {
-        this.categoryid = categoryid;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getCategory() {

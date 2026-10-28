@@ -1,0 +1,12 @@
+package com.merida.tecnm.market_backend.domain.repository;
+
+import com.merida.tecnm.market_backend.domain.Purchase;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface PurchaseRepository {
+    List<Purchase> getAll();
+    Optional<List<Purchase>> getByClient(String clientId);
+    Purchase save(Purchase purchase);
+}

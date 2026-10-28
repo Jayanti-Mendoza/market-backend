@@ -1,35 +1,40 @@
 package com.merida.tecnm.market_backend.persistence.entity;
 
 import jakarta.persistence.*;
-
 import java.util.List;
 
 @Entity
-@Table(name ="productos")
+@Table(name = "productos")
 public class Producto {
+
     @Id
-    @GeneratedValue(strategy = GenerationType. IDENTITY)
-    @Column(name ="id_producto")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_producto")
     private Integer idProducto;
+
     private String nombre;
-    @Column (name ="id_categoria")
-    private Integer id_categoria;
-    @Column(name ="codigo_barras")
+
+    @Column(name = "id_categoria")
+    private Integer idCategoria;
+
+    @Column(name = "codigo_barras")
     private String codigoBarras;
-    @Column (name ="precio_venta")
-    private Double precio_Venta;
-    @Column(name ="cantidad_stock")
+
+    @Column(name = "precio_venta")
+    private Double precioVenta;
+
+    @Column(name = "cantidad_stock")
     private Integer cantidadStock;
+
     private Boolean estado;
 
-
     @ManyToOne
-    @JoinColumn (name ="id_categorias", insertable = false, updatable = false)
+    @JoinColumn(name = "id_categoria", insertable = false, updatable = false)
     private Categoria categoria;
 
-    //ojo
-    @OneToMany (mappedBy = "productos")
+    @OneToMany(mappedBy = "producto")
     private List<CompraProducto> compraProductos;
+
     public Integer getIdProducto() {
         return idProducto;
     }
@@ -46,12 +51,12 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public Integer getId_categoria() {
-        return id_categoria;
+    public Integer getIdCategoria() {
+        return idCategoria;
     }
 
-    public void setId_categoria(Integer id_categoria) {
-        this.id_categoria = id_categoria;
+    public void setIdCategoria(Integer idCategoria) {
+        this.idCategoria = idCategoria;
     }
 
     public String getCodigoBarras() {
@@ -62,12 +67,12 @@ public class Producto {
         this.codigoBarras = codigoBarras;
     }
 
-    public Double getPrecio_Venta() {
-        return precio_Venta;
+    public Double getPrecioVenta() {
+        return precioVenta;
     }
 
-    public void setPrecio_Venta(Double precio_Venta) {
-        this.precio_Venta = precio_Venta;
+    public void setPrecioVenta(Double precioVenta) {
+        this.precioVenta = precioVenta;
     }
 
     public Integer getCantidadStock() {
