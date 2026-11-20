@@ -1,15 +1,15 @@
 package com.merida.tecnm.market_backend.web.controller;
 
-
 import com.merida.tecnm.market_backend.domain.Product;
 import com.merida.tecnm.market_backend.domain.service.ProductService;
-import com.merida.tecnm.market_backend.persistence.ProductoRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +21,12 @@ import java.util.List;
 @Tag(name = "Product", description = "Manage your products")
 public class ProductController {
 
-    private ProductService productService;
+    private final ProductService productService;
+
+    @Autowired
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
 
     @GetMapping()
     @Operation(summary = "Get all products",
@@ -32,6 +37,24 @@ public class ProductController {
             description = "Internal server error")
     public ResponseEntity<List<Product>> getAll() {
         return new ResponseEntity<>(productService.getAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "Get product by ID",
+            description = "Return a product by its unique identifier")
+    @ApiResponse(responseCode = "200",
+            description = "Product found")
+    @ApiResponse(responseCode = "404",
+            description = "Product not found")
+    @ApiResponse(responseCode = "500",
+            description = "Internal server error")
+    public ResponseEntity<Product> getProduct(
+            @Parameter(description = "Product ID",
+                    example = "2", required = true)
+            @PathVariable("id") int productId) {
+        return productService.getProduct(productId)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/category/{categoryId}")
@@ -45,7 +68,7 @@ public class ProductController {
             description = "Internal server error")
     public ResponseEntity<List<Product>> getByCategory(
             @Parameter(description = "Category ID",
-                    example = "7", required = true)
+                    example = "5", required = true)
             @PathVariable("categoryId") int categoryId) {
 
         return productService.getByCategory(categoryId)
@@ -91,6 +114,46 @@ public class ProductController {
         return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
     }
 
+    @PutMapping("/{id}")
+    @Operation(
+            summary = "Update an existing product",
+            description = "Updates the product corresponding to the provided ID",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    required = true,
+                    content = @Content(
+                            examples = @ExampleObject(
+                                    name = "Example Product Update",
+                                    value = """
+                                            {
+                                                "name": "Helado de Fresa Especial",
+                                                "categoryId": 5,
+                                                "price": "24.50",
+                                                "stock": 250,
+                                                "active": true
+                                            }
+                                            """
+                            )
+                    )
+            )
+    )
+    @ApiResponse(responseCode = "200",
+            description = "Product updated successfully")
+    @ApiResponse(responseCode = "400",
+            description = "Invalid product data")
+    @ApiResponse(responseCode = "404",
+            description = "Product not found")
+    @ApiResponse(responseCode = "500",
+            description = "Internal server error")
+    public ResponseEntity<Product> update(
+            @Parameter(description = "ID of the product to update",
+                    example = "2", required = true)
+            @PathVariable("id") int productId,
+            @RequestBody Product product) {
+        return productService.update(productId, product)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete a product by ID",
             description = "Deletes a product if it exists")
@@ -104,17 +167,22 @@ public class ProductController {
             description = "Forbidden")
     @ApiResponse(responseCode = "404",
             description = "Product not found")
+    @ApiResponse(responseCode = "409",
+            description = "Cannot delete product because it has associated purchases")
     @ApiResponse(responseCode = "500",
             description = "Internal server error")
     public ResponseEntity<Void> delete(
             @Parameter(description = "ID of the product to be deleted",
-                    example = "7", required = true)
+                    example = "2", required = true)
             @PathVariable("id") int productId) {
-
-        if (productService.delete(productId)) {
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
+        try {
+            if (productService.delete(productId)) {
+                return ResponseEntity.ok().build();
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (DataIntegrityViolationException ex) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }
 }

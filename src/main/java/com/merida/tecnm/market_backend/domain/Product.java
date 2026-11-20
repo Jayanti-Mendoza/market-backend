@@ -1,20 +1,34 @@
 package com.merida.tecnm.market_backend.domain;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+
 public class Product {
-    private int productId;
+    @JsonAlias({"idProducto", "id_producto"})
+    private Integer productId;
+
+    @JsonAlias({"nombre"})
     private String name;
-    private int categoryId;
+
+    @JsonAlias({"idCategoria", "id_categoria"})
+    private Integer categoryId;
+
+    @JsonAlias({"precio", "precioVenta", "precio_venta"})
     private double price;
+
+    @JsonAlias({"cantidadStock", "cantidad_stock"})
     private int stock;
+
+    @JsonAlias({"estado"})
     private boolean active;
+
+    @JsonAlias({"categoria"})
     private Category category;
 
-    // Getters y Setters para que MapStruct pueda reconocer las propiedades:
-    public int getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(Integer productId) {
         this.productId = productId;
     }
 
@@ -26,11 +40,11 @@ public class Product {
         this.name = name;
     }
 
-    public int getCategoryId() {
+    public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
 

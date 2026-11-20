@@ -1,6 +1,7 @@
 package com.merida.tecnm.market_backend.persistence.entity;
 
 import jakarta.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -12,7 +13,7 @@ public class Cliente {
 
     private String nombre;
     private String apellidos;
-    private String celular;
+    private BigDecimal celular;
     private String direccion;
 
     @OneToMany(mappedBy = "cliente")
@@ -45,11 +46,11 @@ public class Cliente {
         this.apellidos = apellidos;
     }
 
-    public String getCelular() {
+    public BigDecimal getCelular() {
         return celular;
     }
 
-    public void setCelular(String celular) {
+    public void setCelular(BigDecimal celular) {
         this.celular = celular;
     }
 
