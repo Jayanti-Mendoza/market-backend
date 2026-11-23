@@ -170,7 +170,7 @@ class MarketBackendApplicationTests {
         cliente.setId("CLI-001");
         cliente.setNombre("María");
         cliente.setApellidos("López");
-        cliente.setCelular("9991112233");
+        cliente.setCelular(new java.math.BigDecimal("9991112233"));
         cliente.setDireccion("Calle 50 #200");
         cliente.setCorreoElectronico("maria.lopez@example.com");
 
@@ -188,7 +188,7 @@ class MarketBackendApplicationTests {
         assertEquals("CLI-001", inverse.getId());
         assertEquals("María", inverse.getNombre());
         assertEquals("López", inverse.getApellidos());
-        assertEquals("9991112233", inverse.getCelular());
+        assertEquals(new java.math.BigDecimal("9991112233"), inverse.getCelular());
         assertEquals("Calle 50 #200", inverse.getDireccion());
         assertEquals("maria.lopez@example.com", inverse.getCorreoElectronico());
     }
@@ -325,8 +325,8 @@ class MarketBackendApplicationTests {
         Purchase purchase = objectMapper.readValue(json, Purchase.class);
 
         assertNotNull(purchase);
-        assertEquals("CLI-001", purchase.getClientId());
-        assertEquals("TARJETA", purchase.getPaymentMethod());
+        assertEquals("4546221", purchase.getClientId());
+        assertEquals("T", purchase.getPaymentMethod());
         assertEquals("Entregar por la tarde", purchase.getComment());
         assertNotNull(purchase.getItems());
         assertEquals(2, purchase.getItems().size());

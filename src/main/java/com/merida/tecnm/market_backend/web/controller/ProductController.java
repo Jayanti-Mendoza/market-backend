@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping({"/products", "/productos"})
 @Tag(name = "Product", description = "Manage your products")
 public class ProductController {
 
